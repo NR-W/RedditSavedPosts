@@ -1,4 +1,3 @@
-# https://pypi.org/project/selenium/
 #import selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -50,9 +49,9 @@ def setPostDataToExcel(savedPostsList, index, dataXPath, excelCol, cellContentTy
         if cellContentType == CellDataType.text and excelCol == COL_IDX_POST_TITLE:
             sheet1.write(index+1, excelCol, cellContent, titleColStyle)
         elif cellContentType == CellDataType.text:
-            sheet1.write(index+1, excelCol, cellContent)   # from: https://medium.com/swlh/web-scraping-using-selenium-and-beautifulsoup-adfc8810240a
+            sheet1.write(index+1, excelCol, cellContent)
         elif cellContentType == CellDataType.href_hyperlink or cellContentType == CellDataType.external_hyperlink:
-            sheet1.write(index+1, excelCol, xlwt.Formula(cellContent))   # from: https://stackoverflow.com/questions/6831877/adding-links-to-another-cell-using-the-xlwt-module-for-python
+            sheet1.write(index+1, excelCol, xlwt.Formula(cellContent))
         break
 
 # Import a hyperlink. Note: the dataXPath should be pointing to a <a> tag.
@@ -75,7 +74,7 @@ def setPostTitle(savedPostsList, index):
 
 processedPosts = 0  #how many posts we have processed so far at this point
 def importRedditSaves():
-    global processedPosts   # from: https://www.w3schools.com/python/gloss_python_global_variables.asp
+    global processedPosts
     savedPosts = driver.find_elements(by=By.XPATH, value=itemXPath)
     postCount = len(savedPosts)
     print("postCount: ", postCount)
@@ -105,7 +104,6 @@ sheet1.col(0).width = 256*75
 sheet1.col(1).width = 256*25
 sheet1.col(2).width = 256*15
 sheet1.col(3).width = 256*25
-# sheet1.col(0).set_style(titleColStyle)    # This style needs to be set in the write() function for each cell being written...
 
 
 # Scraper
@@ -116,6 +114,7 @@ driver.get('https://www.reddit.com/user/'+reddit_username+'/saved/')
 
 itemXPath = "/html/body/div[1]/div/div[2]/div[2]/div/div/div/div[2]/div[3]/div[1]/div[2]/div[1]/div"
 
+# Relative XPaths
 titleXPath = "./div/div/div[2]/div/div[2]/div[1]/div[1]/a/div/h3"
 linkXPath = "./div/div/div[2]/div/div[2]/div[1]/div[1]/a"
 subRedditXPath = "./div/div/div[2]/div/div[2]/div[2]/div[1]/a"
